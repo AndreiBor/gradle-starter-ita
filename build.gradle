@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+group 'by.ita'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+wrapper {
+    gradleVersion("8.2")
+}
+
+
+task hello {
+    println "Configuration.phase"
+    println "Gradle ${gradle.hashCode()}, project: ${project.hashCode()}, rootProject: ${rootProject.hashCode()}"
+    description = "Hello task"
+    group = "ita"
+}
+
+
+
+
+
