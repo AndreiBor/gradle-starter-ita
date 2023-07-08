@@ -1,3 +1,5 @@
+import java.time.LocalDate
+
 plugins {
     id 'java'
 }
@@ -8,6 +10,15 @@ version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 }
+
+ext {
+    javaVersion = 17
+    currentDate = LocalDate.now()
+}
+
+
+println javaVersion
+println currentDate
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
@@ -22,15 +33,16 @@ wrapper {
     gradleVersion("8.2")
 }
 
+apply from: 'script.gradle'
+apply plugin: CustomPlugin
 
-task hello {
-    println "Configuration.phase"
-    println "Gradle ${gradle.hashCode()}, project: ${project.hashCode()}, rootProject: ${rootProject.hashCode()}"
-    description = "Hello task"
-    group = "ita"
+
+class CustomPlugin implements Plugin<Project> {
+
+    @Override
+    void apply(Project target) {
+        println "CustomPlugin"
+    }
 }
-
-
-
 
 

@@ -1,0 +1,59 @@
+
+//def map = [description: "Hello task", group: "ita"]
+
+task hello(description: "Hello task", group: "ita", type: DefaultTask) {
+    println "Configuration.phase"
+    println "Gradle ${gradle.hashCode()}, project: ${project.hashCode()}, rootProject: ${rootProject.hashCode()}"
+    println "description: ${description}, group: ${group}"
+
+    doLast {
+        println "doLast1"
+    }
+
+    doLast {
+        println "doLast2"
+    }
+
+
+    doFirst {
+        println "doFirst1"
+    }
+
+    doFirst {
+        println "doFirst2"
+    }
+}
+
+
+task task1 {
+    doLast {
+        println "task1"
+    }
+}
+task task2 {
+    doLast {
+        println "task2"
+    }
+}
+task task3 {
+    doLast {
+        println "task3"
+    }
+}
+task task4 {
+    doLast {
+        println "task4"
+    }
+}
+
+task2.dependsOn task4
+task4.dependsOn task1
+
+task2.finalizedBy task3
+
+gradle.taskGraph.whenReady {
+    TaskExecutionGraph graph ->
+        println "Graph: "
+        graph.allTasks.each(it ->
+                println "${it.name}")
+}
